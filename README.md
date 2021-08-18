@@ -1,5 +1,5 @@
 # linkedGAN
-GAN-generated profile images
+GAN-generated profile images for LinkedIn.
 
 ## What is this?
 This is a simple Python script to retrieve GAN-generated images from [This Person Does Not Exist](https://thispersondoesnotexist.com) and display them as your LinkedIn profile image. I currently run it as an AWS Lambda function at 1 minute intervals.
