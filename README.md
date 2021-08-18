@@ -11,6 +11,7 @@ This is a simple Python script to retrieve GAN-generated images from [This Perso
 
 ## How does it work?
 LinkedIn restricts their Profile Edit API to a small number of app partners, so this script works more like a bot, submitting requests to their AJAX API. Rather than use an API key it has to re-use cookies from an authenticated session (stored as a SecureString in AWS Systems Manager Parameter Store). At some point I'll add the ability to refresh cookies.
+
 Steps:
 1. Retrieve image from https://thispersondoesnotexist.com
 2. Re-size and overlay with a watermark.
