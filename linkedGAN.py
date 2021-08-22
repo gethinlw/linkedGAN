@@ -17,7 +17,7 @@ def main() -> None:
                         level=logging.INFO
                         )
 
-    # Retrieve sensitive parameters from the AWS Simple Systems Manager Parameter Store
+    # Retrieve sensitive parameters from the AWS Simple Systems Manager Parameter Store (securestrings)
     client: botocore.client = boto3.client('ssm')
     linkedin_profile_page: str = get_param(client, 'linkedGAN_linkedin_profile_page') # Your linkedin profile page url
     encoded_profile_urn: str = get_param(client, 'linkedGAN_encoded_profile_urn') # HTML-encoded profile urn
