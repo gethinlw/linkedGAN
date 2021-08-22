@@ -151,7 +151,7 @@ def register_metadata(metadata_api_url: str, image: bytes, is_orig: bool, **kwar
     urn: str = r_data.get('data', {}).get('value', {}).get('urn', '')
 
     if upload_url == '' or urn == '':
-        raise RuntimeError(f'Missing urn or upload URL after {action}')
+        raise RuntimeError(f'Missing urn or upload URL after {action!r}')
 
     return upload_url, urn
 
