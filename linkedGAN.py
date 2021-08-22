@@ -22,7 +22,8 @@ def main() -> None:
     linkedin_profile_page: str = get_param(client, 'linkedGAN_linkedin_profile_page') # Your linkedin profile page url
     encoded_profile_urn: str = get_param(client, 'linkedGAN_encoded_profile_urn') # HTML-encoded profile urn
     cookies: dict = loads(get_param(client, 'linkedGAN_cookies')) # Cookies as a JSON string of k,v pairs, all strings
-
+    # Cookies required are 'bcookie', 'bscookie', 'li_mc', 'li_rm', 'li_gc', 'liap', 'li_at', 'JSESSIONID'
+        
     # Set non-sensitive parameters
     gan_image_url: str = 'https://thispersondoesnotexist.com/image'
     metadata_api_url: str = 'https://www.linkedin.com/voyager/api/voyagerMediaUploadMetadata'
