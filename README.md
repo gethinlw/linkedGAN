@@ -18,3 +18,11 @@ Steps:
 3. Register media upload metadata with Linkedin.
 4. Upload files.
 5. Switch profile images to the new media files.
+
+## Warning!
+I don't believe this is in breach of LinkedIn's terms of service because:
+1. Automation isn't being used to message or otherwise interact with other LinkedIn members or scrape data from the site.
+2. No misrepresentation is taking place, since the images are clearly labelled as being artificially generated.
+3. This script generates a relatively small amount of traffic (the profile images are ~25KB) so as long as it doesn't get triggered too often it won't have any QoS impact.
+
+However: this script is provided for interest only and is used entirely at your own risk.
