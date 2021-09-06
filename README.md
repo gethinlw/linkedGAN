@@ -14,7 +14,7 @@ LinkedIn restricts their Profile Edit API to a small number of app partners, so 
 
 Steps:
 1. Retrieve image from https://thispersondoesnotexist.com
-2. Re-size and overlay with a watermark.
+2. Re-size and overlay with a watermark (to make it obvious that it's an artificial image).
 3. Register media upload metadata with Linkedin.
 4. Upload files.
 5. Switch profile images to the new media files.
