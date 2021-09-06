@@ -17,13 +17,13 @@ def main() -> None:
                         level=logging.INFO
                         )
 
-    # Retrieve sensitive parameters from the AWS Simple Systems Manager Parameter Store (securestrings)
+    # Retrieve sensitive parameters from the AWS Simple Systems Manager Parameter Store
     client: botocore.client = boto3.client('ssm')
     linkedin_profile_page: str = get_param(client, 'linkedGAN_linkedin_profile_page') # Your linkedin profile page url
     encoded_profile_urn: str = get_param(client, 'linkedGAN_encoded_profile_urn') # HTML-encoded profile urn
     cookies: dict = loads(get_param(client, 'linkedGAN_cookies')) # Cookies as a JSON string of k,v pairs, all strings
-    # Cookies required are 'bcookie', 'bscookie', 'li_mc', 'li_rm', 'li_gc', 'liap', 'li_at', 'JSESSIONID'
-        
+    # Cookies required are 'li_at' and 'JSESSIONID' - quotes around JSESSIONID value need to be escaped with blackslash
+
     # Set non-sensitive parameters
     gan_image_url: str = 'https://thispersondoesnotexist.com/image'
     metadata_api_url: str = 'https://www.linkedin.com/voyager/api/voyagerMediaUploadMetadata'
@@ -191,10 +191,12 @@ def check_request_result(r: Response, action: str) -> None:
 
     # Check for a 2xx HTTP return code, if there was an error throw an exception to halt the script
     if r is not None and r.status_code//100 == 2:
-        logging.info(f'Requests action {action!r} result: {r.status_code}')
+        logging.info(f'Requests action {action!r} result: {r.status_code} ({r.reason})')
     else:
-        raise RuntimeError(f'Requests action {action!r} failed')
-
+        raise RuntimeError(
+                f'Requests action {action!r} failed{f": {r.status_code} ({r.reason})" if r is not None else ""}'
+                )
+    
 
 def get_param(client: botocore.client, param_name: str) -> str:
     """
@@ -211,6 +213,17 @@ def get_param(client: botocore.client, param_name: str) -> str:
     # Call the AWS SSM GetParameter API, extract the parameter's value from the response
     response_data = client.get_parameter(Name=param_name, WithDecryption=True)
     return response_data.get('Parameter', {}).get('Value', '')
+
+
+def lambda_handler(event: dict, context: dict) -> None:
+    """
+    This is the handler called when it's deployed as a Lambda function in AWS.
+
+    Args:
+    event (dict): Information about the event that triggered the function, can be used to pass in values.
+    context (dict): No idea what this is for, not used, but causes an exception if it's not an available argument.
+    """
+    main()
 
 
 if __name__ == '__main__':
